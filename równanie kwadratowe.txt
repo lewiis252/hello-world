@@ -1,0 +1,62 @@
+
+class Parametry {
+
+    double ws_a;
+    double ws_b;
+    double ws_c;
+
+    Parametry(double a, double b, double c) {
+        ws_a = a;
+        ws_b = b;
+        ws_c = c;
+    }
+
+    double delta() {
+        return (double) (ws_b * ws_b - 4 * ws_a * ws_c);
+    }
+
+
+
+    void analiza() {
+        Operacje ob = new Operacje();
+        System.out.println();
+        System.out.println("Dla danych parametrów delta wynosi: " + delta());
+
+        if(delta() >= 0){
+            System.out.println("Pierwiastek z delty wynosi: " + ob.pierwiastek());
+            System.out.println("Miejsca zerowe to: " + ob.rozw1() + " oraz " + ob.rozw2());
+        }
+        else
+            System.out.println("Brak rozwi¹zañ w liczbach rzeczywistych");
+    }
+
+
+    class Operacje {
+        double pierwiastek() {
+            return (double) Math.sqrt(delta());
+        }
+
+        double rozw1() {
+            return (double) ((-ws_b - pierwiastek()) / (2 * ws_a));
+        }
+
+        double rozw2() {
+            return (double) ((-ws_b + pierwiastek()) / (2 * ws_a));
+        }
+    }
+
+}
+class Kalkulator {
+    public static void main(String[] args) {
+
+        Parametry dane = new Parametry(1,4,3);
+        Parametry dane1 = new Parametry(4, 8, 1);
+
+
+
+        dane.analiza();
+        dane1.analiza();
+
+
+    }
+}
