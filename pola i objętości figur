@@ -1,3 +1,5 @@
+// ten program napisano w języku JAVA
+
 abstract class Obiekt {
     private double d, s;
     private String n;
