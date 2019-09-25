@@ -1,0 +1,219 @@
+abstract class Obiekt {
+    private double d, s;
+    private String n;
+
+    // ustawia wartości domyślne
+    Obiekt() {
+        d = s = 0.0;
+        n = "nic";
+    }
+
+    Obiekt(double długość, double szerokość, String nazwa) {
+        d = długość;
+        s = szerokość;
+        n = nazwa;
+    }
+
+    // tworzy obiekt posiadający promień (podstawy/kuli)
+    Obiekt(double promień, String nazwa) {
+        d = s = promień;
+        n = nazwa;
+    }
+
+    //metody dostępowe dla zmiennych
+    double getD() {return d;}
+    double getS() {return s;}
+    void setD (double długość) {d = długość;}
+    void setS (double szerokość) {s = szerokość;}
+    String getN() {return n;}
+
+    abstract void wynik();
+}
+
+class Trójkąt extends Obiekt {
+
+    Trójkąt() {
+        super();
+    }
+
+    Trójkąt(double długość, double szerokość) {
+        super(długość, szerokość, "Trójkąt");
+    }
+
+    void wynik() {
+        double pole = getD() * getS() / 2;
+        System.out.println("Typ obiektu: " + getN() + ", pole powierzchni wynosi: " + pole);
+
+
+    }
+}
+
+class Prostokąt extends Obiekt {
+
+    Prostokąt() {
+        super();
+    }
+
+    Prostokąt(double długość, double szerokość) {
+        super(długość, szerokość, "Prostokąt");
+    }
+
+    void wynik() {
+        double pole = getD() * getS();
+        System.out.println("Typ obiektu: " + getN() + ", pole powierzchni wynosi: "  + pole);
+
+
+    }
+}
+
+class Prostopadłościan extends Obiekt {
+    private double w;
+
+    Prostopadłościan() {
+        super();
+        w = 0.0;
+    }
+
+    Prostopadłościan(double długość, double szerokość, double wysokość){
+        super(długość, szerokość, "Prostopadłościan");
+        w = wysokość;
+    }
+
+    void wynik() {
+        double objętość = getD() * getS() * w;
+        double pole = 2 * (getD() * getS() + getD() * w + getS() * w);
+        System.out.println("Typ obiektu: " + getN() + ", objętość wynosi: " + objętość + "; pole powierzchni wynosi " + pole );
+
+    }
+}
+
+
+
+class Ostrosłup extends Obiekt {
+    private double w;
+
+    Ostrosłup() {
+        super();
+        w = 0.0;
+    }
+
+    Ostrosłup(double długość, double szerokość, double wysokość) {
+        super(długość, szerokość, "Ostrosłup czworokątny");
+        w = wysokość;
+    }
+
+    void wynik() {
+        double objętość = getD() * getS() * w / 3;
+        double pole = getD() * getS() + getD() * Math.sqrt(w * w  + ((getS()/2)*getS()/2)) + getS() * Math.sqrt(w * w  + ((getD()/2)*getD()/2));
+        System.out.println("Typ obiektu: " + getN() + ", objętość wynosi: " + objętość + "; pole powierzchni wynosi " + pole);
+
+    }
+}
+
+class Stożek extends Obiekt {
+    private double w;
+
+    Stożek() {
+        super();
+        w = 0.0;
+    }
+
+    Stożek(double promień, double wysokość) {
+        super(promień, "Stożek");
+        w = wysokość;
+    }
+
+    void wynik() {
+        double objętość = Math.PI * getD() * getD() * w / 3;
+        double pole = Math.PI * getS() * (getD() + Math.sqrt((getD() * getD()) + (w * w)));
+        System.out.println("Typ obiektu: " + getN() + ", objętość wynosi: " + objętość + "; pole powierzchni wynosi " + pole);
+
+    }
+}
+
+class Walec extends Obiekt {
+    private double w;
+
+    Walec() {
+        super();
+        w = 0.0;
+    }
+
+    Walec(double promień, double wysokość) {
+        super(promień, "Walec");
+        w = wysokość;
+    }
+
+    void wynik() {
+        double objętość = Math.PI * (getD()) * (getS()) * w;
+        double pole = 2 * Math.PI * getD() * (getD()+w);
+        System.out.println("Typ obiektu: " + getN() + ", objętość wynosi: " + objętość + "; pole powierzchni wynosi " + pole);
+
+    }
+}
+
+class Kula extends Obiekt {
+
+
+    Kula() {
+        super();
+    }
+
+    Kula(double promień) {
+        super(promień, "Kula");
+    }
+
+    void wynik() {
+        double objętość = 4 * Math.PI * getD() * getD() * getD() / 3;
+        double pole = 4 * Math.PI * getD() * getD();
+        System.out.println("Typ obiektu: " + getN() + ", objętość wynosi: " + objętość + "; pole powierzchni wynosi " + pole);
+
+    }
+}
+
+class Koło extends Obiekt {
+
+    Koło() {
+        super();
+    }
+
+
+    Koło(double promień) {
+        super(promień, "Koło");
+    }
+
+    void wynik() {
+        double pole = Math.PI*getD()*getS();
+        System.out.println("Typ obiektu: " + getN() + ", pole powierzchni wynosi: " + pole);
+
+
+    }
+}
+
+
+class Figury {
+    public static void main(String[] args) {
+        // oblicza pola figur płaskich oraz objętość i pole opwierzchni brył
+
+        // obłsugiwane obiekty to: Trójkąt, Prostokąt, Prostopadłościan,
+        // Ostrosłup (wyłącznie czworokątny), Stożek, Walec, Kula, Koło.
+
+
+        Obiekt figury[] = new Obiekt[8];
+
+        figury[0] = new Trójkąt(4, 4);
+        figury[1] = new Prostokąt(4, 4);
+        figury[2] = new Prostopadłościan(4,4,4);
+        figury[3] = new Ostrosłup(4,4,4);
+        figury[4] = new Stożek(4,4);
+        figury[5] = new Walec(4,4);
+        figury[6] = new Kula(4);
+        figury[7] = new Koło(4);
+
+        for(int i = 0; i < figury.length; i++){
+            System.out.println();
+            figury[i].wynik();
+        }
+
+    }
+}
