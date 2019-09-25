@@ -195,10 +195,10 @@ class Koło extends Obiekt {
 
 class Figury {
     public static void main(String[] args) {
-        // oblicza pola figur płaskich oraz objętość i pole opwierzchni brył
+        // oblicza pola figur płaskich oraz objętość i pole powierzchni brył
 
-        // obłsugiwane obiekty to: Trójkąt, Prostokąt, Prostopadłościan,
-        // Ostrosłup (wyłącznie czworokątny), Stożek, Walec, Kula, Koło.
+        // obłsugiwane obiekty to: Trójkąt, Prostokąt, Prostopadłościan, Ostrosłup (wyłącznie czworokątny), Stożek, Walec, Kula, Koło.
+        
 
 
         Obiekt figury[] = new Obiekt[8];
