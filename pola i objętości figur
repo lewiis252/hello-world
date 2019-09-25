@@ -199,6 +199,8 @@ class Figury {
 
         // obłsugiwane obiekty to: Trójkąt, Prostokąt, Prostopadłościan, Ostrosłup (wyłącznie czworokątny), Stożek, Walec, Kula, Koło.
         
+        // kolejność wprowadzanych danych to: długość, szerokość, wysokość oraz promień, wysokość dla figur obrotowych
+        
 
 
         Obiekt figury[] = new Obiekt[8];
