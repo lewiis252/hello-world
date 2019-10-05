@@ -1,0 +1,98 @@
+//Program sterujący sygnalizacją świetlną; JAVA JDK13
+enum TrafficLightColor {
+    CZERWONE, ZIELONE, ZOLTE1, ZOLTE2
+}
+
+class TrafficLightSimulator implements Runnable {
+    private Thread thrd; //referencja wątku wykonującego symulację
+    private TrafficLightColor tlc; //przechowuje bieżący kolor światła
+    boolean stop = false; //wartość true zatrzymuje symulację
+    boolean changed = false; //ma wartość true, gdy światło zmieniło się
+
+    TrafficLightSimulator(TrafficLightColor init) {
+        tlc = init;
+        thrd = new Thread(this);
+        thrd.start();
+    }
+
+    TrafficLightSimulator() {
+        tlc = TrafficLightColor.CZERWONE;
+        thrd = new Thread(this);
+        thrd.start();
+    }
+
+    //roczpoczyna symulację
+    public void run() {
+        while(!stop) {
+            try {
+                switch (tlc) {
+                    case ZIELONE:
+                        Thread.sleep(10000);
+                        break;
+                    case ZOLTE1:
+                        Thread.sleep(2000);
+                        break;
+                    case ZOLTE2:
+                    Thread.sleep(2000);
+                    break;
+                    case CZERWONE:
+                        Thread.sleep(12000);
+                        break;
+                }
+            }catch (InterruptedException exc) {
+                System.out.println(exc);
+            }
+            changeColor();
+        }
+    }
+    //zmienia kolor
+    synchronized void changeColor() {
+        switch (tlc) {
+            case CZERWONE:
+                tlc = TrafficLightColor.ZOLTE2;
+                break;
+            case ZOLTE2:
+                tlc = TrafficLightColor.ZIELONE;
+                break;
+            case ZIELONE:
+                tlc = TrafficLightColor.ZOLTE1;
+                break;
+            case ZOLTE1:
+                tlc = TrafficLightColor.CZERWONE;
+                break;
+        }
+        changed = true;
+        notify(); //sygnalizuje zmianę światła
+    }
+    //czeka na zmianę swiatła
+    synchronized void waitForChange() {
+        try {
+            while(!changed)
+                wait();
+            changed = false;
+        } catch (InterruptedException exc) {
+            System.out.println(exc);
+        }
+    }
+    //zwraca bieżący kolor swiatła
+    synchronized TrafficLightColor getColor() {
+        return tlc;
+    }
+    //zatrzymuje sygnalizację
+    synchronized void cancel() {
+        stop = true;
+    }
+}
+
+class TrafficLightDemo {
+    public static void main(String[] args) {
+
+        TrafficLightSimulator tl = new TrafficLightSimulator((TrafficLightColor.ZIELONE));
+
+        for(int i = 0; i < 9; i++) {
+            System.out.println(tl.getColor());
+            tl.waitForChange();
+        }
+        tl.cancel();
+    }
+}
