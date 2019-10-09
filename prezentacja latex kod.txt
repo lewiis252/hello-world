@@ -1,0 +1,72 @@
+\documentclass[
+mode=present,
+style=horatio,
+clock]{powerdot}
+\usepackage[utf8]{inputenc}
+\usepackage{polski}
+
+%tworzy proste metody umożliwiające kontynuację numeracji na następnym slajdzie
+\newcounter{saveenumi}
+\newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
+\newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
+
+
+\title{Pierwsza prezentacja}
+\author{Krystian oleniacz}
+\date{\today}
+
+\begin{document}
+	
+	\maketitle
+\begin{section}{częśc głowna}	
+	\begin{slide}{Slajd tytułowy}		
+			Przykładowa prezentacja z użyciem pakietu powerdot		
+	\end{slide}
+
+
+
+\begin{slide}[toc={skrót}]{Bardzo długa nazwa której wyświetlać nie chcesz}
+	tekst slajdu ple ple ple
+	\end{slide}
+
+\begin{slide}{testo slajdu z numeracją na kolejny slajd}
+	\begin{enumerate}
+		\item pierwszy
+		\item drugi
+		\seti
+	\end{enumerate}
+	\end{slide}
+
+\begin{slide}{testo slajdu z numeracją z kolejnego slajdu}
+	\begin{enumerate}
+		\conti
+		\item trzeci
+		\item czwarty
+		\seti
+	\end{enumerate}
+\end{slide}
+
+
+
+
+\end{section}
+
+\begin{section}[tocsection=hidden]{Sekcja druga} 
+	
+	\begin{slide} {ukryty slajd}
+		ten slajd powinien pozostać niewidoczny w spisie treści dopóki nie jest wyświetlony
+		\end{slide}
+	\begin{slide}{Wyliczenia ukryte} 
+		
+		\begin{itemize}[type=1]		
+			\item Notka pierwsza \pause
+			\item Notka druga \pause
+			\item Notka trzecia \pause
+		\end{itemize}
+	\end{slide}
+
+
+
+\end{section}
+
+\end{document}
